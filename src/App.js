@@ -9,12 +9,9 @@ function App() {
 
   const updateColor = e => setColor(e.target.value)
 
-  function filterColors(color) {
-    if (color.includes(selectedColor)) return color
-  }
+  const filterColors = color => color.includes(selectedColor)
 
   const filteredColors = colors.filter(filterColors)
-  console.log(filteredColors)
 
   return (
     <div className="App">
