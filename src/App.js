@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react"
+import { ColorDiv, ColorGrid } from "./StyledComponents"
+import "./App.sass"
 
 function App() {
+  const [selectedColor, setColor] = useState("")
+
+  const colors = ["red", "green", "red", "blue", "purple", "yellow", "brown", "purple", "cyan"]
+
+  const updateColor = e => setColor(e.target.value)
+
+  function filterColors(color) {
+    if (color.includes(selectedColor)) return color
+  }
+
+  const filteredColors = colors.filter(filterColors)
+  console.log(filteredColors)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>You are selecting the color: <span className="selected-color" style={{ backgroundColor: selectedColor }}>{selectedColor}</span></h1>
+      <input className="search-input" onInput={updateColor} type="text" />
+      <ColorGrid>
+        { filteredColors.map(color => <ColorDiv color={color} />) }
+        { filteredColors.length === 0 && <p className="unavailable">The selected color is currently not avaialble.</p> }
+      </ColorGrid>
     </div>
   );
 }
